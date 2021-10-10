@@ -1,0 +1,170 @@
+\documentclass[aspectratio=169]{beamer}
+% other options: sectionpages
+
+\usetheme{ncsu}
+
+\usepackage[english]{babel}
+\usepackage{listings}
+\usepackage{csquotes}
+\usepackage[style=authoryear,backend=biber]{biblatex}
+\usepackage{filecontents}
+\usepackage{blindtext}
+\usepackage{pgfpages}
+
+%\setbeameroption{show notes on second screen}% you'll need pgfpages for this one and a suitable pdf viewer i.e. dspdfviewer
+%\setbeameroption{show notes}
+
+\lstset{%
+  basicstyle=\scriptsize\ttfamily,
+  backgroundcolor=\color{25Gray}
+}
+
+\addbibresource{bibliography.bib}
+
+% The color palettes can be changed
+%   primary: left color beam, Walfpack Red!
+%   secondary: default block environment
+%   tertiary: top header showing outline
+%   structure: structure elements such as list items
+
+\title{NC State Beamer Theme}
+\subtitle{A theme for typesetting presentation slides using \LaTeX{}}
+\author{Yixiao Chen}
+\email{ychen269@ncsu.edu}
+\institute{Department of Mathematics\\NC State University}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Outline}
+\begin{frame}{Outline}
+	\tableofcontents
+\end{frame}
+
+\section{Introduction}
+\subsection{Main features}
+\begin{frame}{Main features}
+  \begin{itemize}
+    \item supports all aspect ratios
+    \item vector backgrounds ``drawn'' using Ti\emph{k}Z
+    \item customizable colors
+  \end{itemize}
+  \bigskip
+  Newest versions available unver \url{https://github.com/yixiaoX/ncsu-beamer}
+\end{frame}
+
+\note{This is how a note page looks like if you use the beameroptions ``show notes'' or ``show notes on second screen''}
+
+\subsection{Colors}
+\begin{frame}{Colors, 1/2}
+  \begin{columns}
+  \begin{column}{0.475\textwidth}
+    All NC State Brand colors palette are predefined.
+  \end{column}
+  \begin{column}{0.475\textwidth}
+  Core colors:\par
+  \begin{tikzpicture}[%
+      node distance=9em,
+      every node/.append style={font=\scriptsize,
+        minimum size=3ex}
+  ]
+    \node[rectangle,fill=WolfpackRed,label=east:Wolfpack Red] (1) {};
+    \node[rectangle,fill=black, label=east:Wolfpack Black,right of=1] (2) {};
+    \node[rectangle,fill=white, label=east:Wolfpack White,below of=1,node distance=4ex] (3) {};
+  \end{tikzpicture}
+
+  Extended colors:\par
+  \begin{tikzpicture}[%
+      node distance=9em,
+      every node/.append style={font=\scriptsize,
+        minimum size=3ex}
+  ]
+    \node[rectangle,fill=ReynoldsRed,  label=east:Reynolds Red]              (1) {};
+    \node[rectangle,fill=PyromanFlame,   label=east:Pyroman Flame,   right of=1] (2) {};
+    \node[rectangle,fill=HuntYellow,    label=east:Hunt Yellow,    below of=1,node distance=4ex] (3) {};
+    \node[rectangle,fill=GenomicGreen,  label=east:Genomic Green,  right of=3] (4) {};
+    \node[rectangle,fill=CarmichaelAqua,    label=east:Carmichael Aqua,    below of=3,node distance=4ex] (5) {};
+    \node[rectangle,fill=InnovationBlue,    label=east:Innovation Blue,    right of=5] (6) {};
+    \node[rectangle,fill=BioIndigo,     label=east:Bio-Indigo,     below of=5,node distance=4ex] (7) {};
+  \end{tikzpicture}
+  \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}[containsverbatim]{Colors, 2/2}
+  In addition to defining colors for single items, the color palettes of the theme can be changed.
+
+  Try for example adding
+  \begin{lstlisting}[%
+    language={[LaTeX]TeX},
+    texcsstyle=*\color{BioIndigo},
+    moretexcs={setbeamercolor}
+  ]
+  \setbeamercolor{palette primary}{fg=white,bg=WolfpackRed}
+  \setbeamercolor{palette secondary}{fg=white,bg=InnovationBlue}
+  \setbeamercolor{palette tertiary}{fg=90Gray,bg=10Gray}
+  \end{lstlisting}
+  to your preamble.
+\end{frame}
+
+\section{Example environments}
+\subsection{Figures and equations}
+\begin{frame}{Figures and equations}
+  \begin{columns}[onlytextwidth]
+    \begin{column}{0.5\textwidth}
+        \centering
+        \begin{figure}
+        \includegraphicscopyright[width=\textwidth]{photo.jpg}{Image courtesy of \href{http://openphoto.net/gallery/image/view/5468}{openphoto.net}}
+        \end{figure}
+    \end{column}
+    \begin{column}{0.4\textwidth}
+    Here is some regular text in a column. And there is an equation
+    \begin{displaymath}
+      f(x)=ax^2+bx+c
+    \end{displaymath}
+    Here is some \alert{important} text.
+    \end{column}
+    \end{columns}
+\end{frame}
+
+\subsection{Lists}
+\begin{frame}{List environments}
+  \begin{columns}[onlytextwidth]
+    \begin{column}{0.5\textwidth}
+      This slide has a list\dots
+      \blinditemize[3]
+      \vspace*{5mm}
+      descriptions\dots
+      \blinddescription[2]
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      as well as some enumerations
+      \blindenumerate[4]
+    \end{column}
+    \end{columns}
+\end{frame}
+
+\subsection{Blocks}
+\begin{frame}{Block environments}
+    \begin{alertblock}{Note}
+        This is important
+    \end{alertblock}
+    
+    \begin{exampleblock}{Example}
+        This is an example
+    \end{exampleblock}
+
+    \begin{theorem}[Pythagoras] 
+        $ a^2 + b^2 = c^2$
+    \end{theorem}
+\end{frame}
+
+\section{Further reading}
+\begin{frame}{Further reading}
+  \nocite{*}
+  \printbibliography[heading=none]
+\end{frame}
+
+\end{document}

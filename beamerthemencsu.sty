@@ -1,0 +1,462 @@
+% `beamerthemencsu.sty' provides a beamer theme more or less compliant
+% with the NC State PowerPoint slides.
+% Newest versions available under https://github.com/yixiaoX/ncsu-beamer
+%
+% The theme is based on the work of Tuomas Välimäki that can be found on
+% https://github.com/tvalimaki/tut-beamer
+% 
+% The TUT theme by Välimäki is based on the work of Benjamin Weiss that can be found on
+% https://github.com/hsrmbeamertheme/hsrmbeamertheme
+%
+% Author: Yixiao Chen (October 9, 2021)
+%         ychen269@ncsu.edu
+%
+% This file may be distributed and/or modified under the GNU Public License.
+% http://www.gnu.org/licenses/gpl-3.0.en.html
+
+\ProvidesPackage{beamerthemencsu}
+
+\RequirePackage{arev}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage{tikz}
+\RequirePackage{xpatch}
+\RequirePackage{silence}
+
+% Style options
+\newif\if@doSectionPage
+\@doSectionPagefalse
+\DeclareOption{sectionpages}{\@doSectionPagetrue}
+\ProcessOptions
+\beamer@compresstrue
+
+\mode<presentation>
+%---------------------------------------------------------------------
+% TOC
+%---------------------------------------------------------------------
+\useoutertheme[subsection=false,shadow]{miniframes}
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[square]
+
+%---------------------------------------------------------------------
+% Custom commands
+%---------------------------------------------------------------------
+\newcommand{\rightTextArrow}{$\rightarrow$}
+
+%---------------------------------------------------------------------
+% Itemize
+%---------------------------------------------------------------------
+\setbeamertemplate{itemize item}{\rightTextArrow}
+\setbeamertemplate{itemize subitem}{\rightTextArrow}
+\setbeamertemplate{itemize subsubitem}{\rightTextArrow}
+
+\setlength{\parskip}{0.5em}
+
+%---------------------------------------------------------------------
+% Colors
+%---------------------------------------------------------------------
+% NC State Core Colors
+\definecolor{WolfpackRed}{RGB}{204,0,0}
+\definecolor{WolfpackBlack}{RGB}{0,0,0}% = black
+\definecolor{WolfpackWhite}{RGB}{255,255,255}% = white
+% NC State Accent Grays
+\definecolor{90Gray}{RGB}{51,51,51}
+\definecolor{60Gray}{RGB}{102,102,102}
+\definecolor{25Gray}{RGB}{204,204,204}
+\definecolor{10Gray}{RGB}{242,242,242}
+% NC State Expanded Colors
+\definecolor{ReynoldsRed}{RGB}{153,0,0}
+\definecolor{PyromanFlame}{RGB}{209,73,5}
+\definecolor{HuntYellow}{RGB}{250,200,0}
+\definecolor{GenomicGreen}{RGB}{111,125,28}
+\definecolor{CarmichaelAqua}{RGB}{0,132,115}
+\definecolor{InnovationBlue}{RGB}{66,126,147}
+\definecolor{BioIndigo}{RGB}{65,86,161}
+
+% Palettes
+\setbeamercolor{palette primary}{fg=white,bg=WolfpackRed}
+\setbeamercolor{palette secondary}{fg=white,bg=InnovationBlue}
+\setbeamercolor{palette tertiary}{fg=90Gray,bg=10Gray}
+\setbeamercolor{palette flame}{fg=white,bg=PyromanFlame}
+\setbeamercolor{palette yellow}{fg=black,bg=HuntYellow}
+\setbeamercolor{palette green}{fg=white,bg=GenomicGreen}
+\setbeamercolor{palette aqua}{fg=white,bg=CarmichaelAqua}
+\setbeamercolor{palette frametitle}{fg=90Gray}
+% General
+\setbeamercolor{normal text}{fg=black}
+\setbeamercolor{structure}{fg=PyromanFlame}
+\setbeamercolor{alerted text}{fg=ReynoldsRed}
+\setbeamercolor{example text}{fg=CarmichaelAqua}
+\setbeamercolor{copyright text}{fg=InnovationBlue}
+% Titlepage
+\setbeamercolor{title}{parent=normal text}
+\setbeamercolor{subtitle}{parent=normal text}
+\setbeamercolor{date}{parent=normal text}
+\setbeamercolor{author}{parent=normal text}
+\setbeamercolor{email}{parent=normal text}
+\setbeamercolor{institute}{parent=normal text}
+% TOC
+\setbeamercolor{section in toc}{parent=normal text}
+% Content
+\setbeamercolor{frametitle}{parent=palette frametitle}
+% Blocks
+\setbeamercolor{block title}{use=palette secondary,bg=palette secondary.bg!50!black,fg=white}
+\setbeamercolor{block body}{parent=palette secondary}
+\setbeamercolor{block title example}{parent=palette green}
+\setbeamercolor{block body example}{parent=palette yellow}
+\setbeamercolor{block title alerted}{fg=white, bg=ReynoldsRed}
+\setbeamercolor{block body alerted}{fg=white, bg=WolfpackRed}
+% Notes
+\setbeamercolor{note page}{fg=90Gray,bg=white}
+\setbeamercolor{note title}{use=palette yellow,fg=white,bg=palette yellow.bg}
+\setbeamercolor{note date}{parent=note title}
+% Page Number
+\setbeamercolor{page number in head/foot}{fg=90Gray, bg={}}
+% Bibliography
+\setbeamercolor{bibliography entry author}{fg=90Gray}
+\setbeamercolor{bibliography entry note}{use=bibliography entry author,fg=bibliography entry author.fg!50!white}
+
+%---------------------------------------------------------------------
+% Fonts
+%---------------------------------------------------------------------
+% General
+\renewcommand\UrlFont{\rmfamily\bfseries}
+% Titlepage
+\setbeamerfont{title}{size=\fontsize{20.74}{20.74}}
+\setbeamerfont{subtitle}{size=\fontsize{12}{14}}
+\setbeamerfont{date}{size=\fontsize{8}{10}}
+\setbeamerfont{author}{size=\fontsize{12}{15}}
+\setbeamerfont{institute}{size=\fontsize{8}{10}}
+\setbeamerfont{email}{size=\fontsize{8}{10}}
+% Section
+\setbeamerfont{section title}{size=\LARGE}
+% Content
+\setbeamerfont{frametitle}{size=\large}
+\setbeamerfont{copyright text}{size=\tiny}
+\setbeamerfont{block title}{series=\bfseries,size=\large}
+\setbeamerfont{block title alerted}{series=\bfseries,size=\large}
+\setbeamerfont{alerted text}{series=\bfseries}
+\setbeamerfont{description item}{series=\bfseries}
+% Captions
+\setbeamerfont{caption name}{series=\bfseries}
+% Footnotes
+\renewcommand{\footnotesize}{\tiny}
+
+%---------------------------------------------------------------------
+% Background
+%---------------------------------------------------------------------
+% Define a macro to draw the NC State brick
+\newcommand\ncsubrick[1]{%
+\begin{tikzpicture}[y=#1, x=#1, yscale=-1, xscale=1, inner sep=0pt, outer sep=0pt]
+\path[fill=WolfpackRed,nonzero rule,rounded corners=0.0000cm] (0.0000,0.0000) rectangle (53.9990,25.8710);
+
+\path[fill=white,nonzero rule] (7.5460,6.7440) -- (7.5670,6.7440) -- (9.6810,12.4060) -- (11.8140,12.4060) -- (11.8140,4.6620) -- (10.3020,4.6620) -- (10.3020,10.0250) -- (10.2810,10.0250) -- (8.2220,4.6620) -- (6.0340,4.6620) -- (6.0340,12.4060) -- (7.5460,12.4060) -- (7.5460,6.7440) -- cycle;
+
+\path[fill=white,nonzero rule] (15.7760,11.3760) .. controls (14.8640,11.3760) and (14.7460,10.5180) .. (14.7460,8.5350) .. controls (14.7460,6.5500) and (14.8640,5.6920) .. (15.7760,5.6920) .. controls (16.2580,5.6920) and (16.4400,6.0790) .. (16.4400,7.1080) -- (18.0280,7.1080) .. controls (18.0920,5.4470) and (17.4270,4.5340) .. (15.7760,4.5340) .. controls (13.1060,4.5340) and (13.1060,6.4860) .. (13.1060,8.5350) .. controls (13.1060,10.5610) and (13.1060,12.5340) .. (15.7760,12.5340) .. controls (17.2880,12.5340) and (18.1140,11.8690) .. (18.1140,9.8000) -- (16.5160,9.8000) .. controls (16.4940,10.4120) and (16.5270,11.3760) .. (15.7760,11.3760) -- cycle;
+
+\path[fill=white,nonzero rule] (26.3290,10.2920) .. controls (26.3290,7.8580) and (23.0680,7.9880) .. (23.0680,6.5190) .. controls (23.0680,5.9820) and (23.3800,5.6920) .. (23.9050,5.6920) .. controls (24.5590,5.6920) and (24.6560,6.2820) .. (24.6560,6.8610) -- (26.2320,6.8610) .. controls (26.3390,5.2420) and (25.5550,4.5340) .. (23.9810,4.5340) .. controls (22.0060,4.5340) and (21.4280,5.4990) .. (21.4280,6.7110) .. controls (21.4280,9.0190) and (24.6870,9.1020) .. (24.6870,10.4970) .. controls (24.6870,11.0220) and (24.4200,11.3760) .. (23.8740,11.3760) .. controls (22.9820,11.3760) and (22.9510,10.7540) .. (22.9510,10.0140) -- (21.3320,10.0140) .. controls (21.2460,11.3550) and (21.6210,12.5340) .. (23.6270,12.5340) .. controls (24.8580,12.5340) and (26.3290,12.2990) .. (26.3290,10.2920) -- cycle;
+
+\path[fill=white,nonzero rule] (28.6780,12.4060) -- (30.2980,12.4060) -- (30.2980,5.9510) -- (32.1000,5.9510) -- (32.1000,4.6620) -- (26.8770,4.6620) -- (26.8770,5.9510) -- (28.6780,5.9510) -- (28.6780,12.4060) -- cycle;
+
+\path[fill=white,nonzero rule] (33.9760,9.5000) -- (34.7140,6.1520) -- (34.7350,6.1520) -- (35.5180,9.5000) -- (33.9760,9.5000) -- cycle(33.7590,4.6620) -- (31.6160,12.4060) -- (33.2130,12.4060) -- (33.6530,10.6900) -- (35.8630,10.6900) -- (36.2900,12.4060) -- (37.9950,12.4060) -- (35.8930,4.6620) -- (33.7590,4.6620) -- cycle;
+
+\path[fill=white,nonzero rule] (40.9150,12.4060) -- (40.9150,5.9510) -- (42.7180,5.9510) -- (42.7180,4.6620) -- (37.4940,4.6620) -- (37.4940,5.9510) -- (39.2970,5.9510) -- (39.2970,12.4060) -- (40.9150,12.4060) -- cycle;
+
+\path[fill=white,nonzero rule] (47.7850,11.2150) -- (45.0900,11.2150) -- (45.0900,8.9540) -- (47.4940,8.9540) -- (47.4940,7.7630) -- (45.0900,7.7630) -- (45.0900,5.8530) -- (47.6970,5.8530) -- (47.6970,4.6620) -- (43.4690,4.6620) -- (43.4690,12.4060) -- (47.7850,12.4060) -- (47.7850,11.2150) -- cycle;
+
+\path[fill=white,nonzero rule] (9.1740,18.8620) .. controls (9.1740,19.6870) and (9.1740,20.8630) .. (7.8840,20.8630) .. controls (6.5950,20.8630) and (6.5950,19.6870) .. (6.5950,18.8620) -- (6.5950,14.8800) -- (6.0340,14.8800) -- (6.0340,19.2760) .. controls (6.0340,20.9080) and (6.8930,21.3360) .. (7.8840,21.3360) .. controls (8.8760,21.3360) and (9.7340,20.9080) .. (9.7340,19.2760) -- (9.7340,14.8800) -- (9.1740,14.8800) -- (9.1740,18.8620) -- cycle;
+
+\path[fill=white,nonzero rule] (14.8410,20.4230) -- (14.8240,20.4410) -- (12.2540,14.8800) -- (11.3940,14.8800) -- (11.3940,21.2110) -- (11.9570,21.2110) -- (11.9570,15.6110) -- (11.9740,15.5930) -- (14.5520,21.2110) -- (15.4020,21.2110) -- (15.4020,14.8800) -- (14.8410,14.8800) -- (14.8410,20.4230) -- cycle;
+
+\path[fill=white,nonzero rule,rounded corners=0.0000cm] (17.1680,14.8800) rectangle (17.7280,21.2110);
+
+\path[fill=white,nonzero rule] (21.0070,20.5470) -- (20.9920,20.5470) -- (19.4920,14.8800) -- (18.8940,14.8800) -- (20.6580,21.2110) -- (21.3590,21.2110) -- (23.1130,14.8800) -- (22.5700,14.8800) -- (21.0070,20.5470) -- cycle;
+
+\path[fill=white,nonzero rule] (24.8140,18.1970) -- (27.0190,18.1970) -- (27.0190,17.7220) -- (24.8140,17.7220) -- (24.8140,15.3550) -- (27.1230,15.3550) -- (27.1230,14.8800) -- (24.2540,14.8800) -- (24.2540,21.2110) -- (27.1840,21.2110) -- (27.1840,20.7400) -- (24.8140,20.7400) -- (24.8140,18.1970) -- cycle;
+
+\path[fill=white,nonzero rule] (29.9560,17.6690) -- (29.0440,17.6690) -- (29.0440,15.3550) -- (30.1930,15.3550) .. controls (30.8490,15.3550) and (31.1920,15.5220) .. (31.1920,16.3890) .. controls (31.1920,17.4520) and (30.7990,17.6690) .. (29.9560,17.6690) -- cycle(30.7720,17.9240) -- (30.7720,17.9080) .. controls (31.6230,17.7130) and (31.7540,17.1870) .. (31.7540,16.3980) .. controls (31.7540,15.2860) and (31.4490,14.8800) .. (30.2280,14.8800) -- (28.4850,14.8800) -- (28.4850,21.2110) -- (29.0440,21.2110) -- (29.0440,18.1440) -- (30.1070,18.1440) .. controls (31.3240,18.1440) and (31.1400,19.3620) .. (31.1480,19.6360) .. controls (31.1590,19.9750) and (31.1830,21.0290) .. (31.2360,21.2110) -- (31.7710,21.2110) .. controls (31.7540,20.9670) and (31.7100,20.7220) .. (31.7100,20.4760) .. controls (31.7100,18.2120) and (31.6580,18.1080) .. (30.7720,17.9240) -- cycle;
+
+\path[fill=white,nonzero rule] (34.9840,17.6970) .. controls (34.2640,17.1790) and (33.7900,17.1540) .. (33.7900,16.2140) .. controls (33.7900,15.4690) and (34.2220,15.2320) .. (34.9030,15.2320) .. controls (35.7640,15.2320) and (35.9590,15.7070) .. (35.9760,16.4860) -- (36.5430,16.4860) .. controls (36.5430,15.5750) and (36.2640,14.7570) .. (34.9480,14.7570) .. controls (33.9150,14.7570) and (33.2210,15.2140) .. (33.2280,16.3100) .. controls (33.2400,16.9430) and (33.2930,17.3200) .. (34.5210,18.0740) .. controls (35.4310,18.6350) and (36.0020,18.8790) .. (36.0020,19.7400) .. controls (36.0020,20.4680) and (35.6420,20.8630) .. (34.9030,20.8630) .. controls (33.7720,20.8630) and (33.7220,20.1330) .. (33.7220,19.4320) -- (33.1420,19.4320) .. controls (33.0900,20.6690) and (33.6420,21.3360) .. (34.8770,21.3360) .. controls (35.9840,21.3360) and (36.5610,20.7850) .. (36.5610,19.6530) .. controls (36.5610,18.4240) and (35.7640,18.2570) .. (34.9840,17.6970) -- cycle;
+
+\path[fill=white,nonzero rule,rounded corners=0.0000cm] (38.1430,14.8800) rectangle (38.7050,21.2110);
+
+\path[fill=white,nonzero rule] (39.9150,15.3550) -- (41.4590,15.3550) -- (41.4590,21.2110) -- (42.0210,21.2110) -- (42.0210,15.3550) -- (43.5640,15.3550) -- (43.5640,14.8800) -- (39.9150,14.8800) -- (39.9150,15.3550) -- cycle;
+
+\path[fill=white,nonzero rule] (47.7930,14.8800) -- (46.2740,18.0300) -- (44.8270,14.8800) -- (44.1940,14.8800) -- (45.9840,18.5820) -- (45.9840,21.2110) -- (46.5470,21.2110) -- (46.5470,18.5820) -- (48.3520,14.8800) -- (47.7930,14.8800) -- cycle;
+\end{tikzpicture}
+}
+
+% Define a macro for the NC State text logo
+\newcommand\ncsutext[2][fill=WolfpackRed]{%
+\begin{tikzpicture}[y=#2, x=#2, yscale=-1, xscale=1, inner sep=0pt, outer sep=0pt]
+\path[nonzero rule, #1] (0.0000,8.8500) -- (0.0000,1.1060) -- (2.1860,1.1060) -- (4.2470,6.4680) -- (4.2670,6.4680) -- (4.2670,1.1060) -- (5.7790,1.1060) -- (5.7790,8.8500) -- (3.6460,8.8500) -- (1.5320,3.1880) -- (1.5110,3.1880) -- (1.5110,8.8500) -- (0.0000,8.8500) -- cycle;
+
+\path[nonzero rule, #1] (7.0690,4.9790) .. controls (7.0690,2.9300) and (7.0690,0.9790) .. (9.7400,0.9790) .. controls (11.3920,0.9790) and (12.0570,1.8900) .. (11.9940,3.5520) -- (10.4050,3.5520) .. controls (10.4050,2.5230) and (10.2230,2.1360) .. (9.7400,2.1360) .. controls (8.8290,2.1360) and (8.7080,2.9950) .. (8.7080,4.9790) .. controls (8.7080,6.9630) and (8.8290,7.8210) .. (9.7400,7.8210) .. controls (10.4900,7.8210) and (10.4600,6.8570) .. (10.4810,6.2440) -- (12.0790,6.2440) .. controls (12.0790,8.3130) and (11.2520,8.9790) .. (9.7400,8.9790) .. controls (7.0690,8.9790) and (7.0690,7.0040) .. (7.0690,4.9790) -- cycle;
+
+\path[nonzero rule, #1] (17.5910,8.9790) .. controls (15.5850,8.9790) and (15.2100,7.7960) .. (15.2940,6.4590) -- (16.9170,6.4590) .. controls (16.9170,7.1990) and (16.9470,7.8210) .. (17.8370,7.8210) .. controls (18.3860,7.8210) and (18.6510,7.4660) .. (18.6510,6.9420) .. controls (18.6510,5.5450) and (15.3920,5.4610) .. (15.3920,3.1550) .. controls (15.3920,1.9440) and (15.9710,0.9790) .. (17.9460,0.9790) .. controls (19.5220,0.9790) and (20.3030,1.6850) .. (20.1980,3.3060) -- (18.6210,3.3060) .. controls (18.6210,2.7260) and (18.5230,2.1360) .. (17.8700,2.1360) .. controls (17.3450,2.1360) and (17.0340,2.4260) .. (17.0340,2.9610) .. controls (17.0340,4.4330) and (20.2930,4.3020) .. (20.2930,6.7370) .. controls (20.2930,8.7420) and (18.8220,8.9790) .. (17.5910,8.9790) -- cycle;
+
+\path[nonzero rule, #1] (26.0640,1.1060) -- (26.0640,2.3950) -- (24.2640,2.3950) -- (24.2640,8.8500) -- (22.6430,8.8500) -- (22.6430,2.3950) -- (20.8410,2.3950) -- (20.8410,1.1060) -- (26.0640,1.1060) -- cycle;
+
+\path[nonzero rule, #1] (28.7010,2.5990) -- (28.6780,2.5990) -- (27.9390,5.9450) -- (29.4830,5.9450) -- (28.7010,2.5990) -- cycle(25.5820,8.8500) -- (27.7230,1.1060) -- (29.8590,1.1060) -- (31.9600,8.8500) -- (30.2540,8.8500) -- (29.8270,7.1330) -- (27.6160,7.1330) -- (27.1770,8.8500) -- (25.5820,8.8500) -- cycle;
+
+\path[nonzero rule, #1] (36.6840,1.1060) -- (36.6840,2.3950) -- (34.8790,2.3950) -- (34.8790,8.8500) -- (33.2600,8.8500) -- (33.2600,2.3950) -- (31.4600,2.3950) -- (31.4600,1.1060) -- (36.6840,1.1060) -- cycle;
+
+\path[nonzero rule, #1] (37.4360,8.8500) -- (37.4360,1.1060) -- (41.6600,1.1060) -- (41.6600,2.2970) -- (39.0550,2.2970) -- (39.0550,4.2080) -- (41.4570,4.2080) -- (41.4570,5.3960) -- (39.0550,5.3960) -- (39.0550,7.6600) -- (41.7470,7.6600) -- (41.7470,8.8500) -- (37.4360,8.8500) -- cycle;
+
+\path[nonzero rule, #1] (45.8900,5.9750) .. controls (45.8900,6.9830) and (45.8900,8.4210) .. (47.4660,8.4210) .. controls (49.0430,8.4210) and (49.0430,6.9830) .. (49.0430,5.9750) -- (49.0430,1.1060) -- (49.7290,1.1060) -- (49.7290,6.4820) .. controls (49.7290,8.4750) and (48.6770,9.0000) .. (47.4660,9.0000) .. controls (46.2540,9.0000) and (45.2040,8.4750) .. (45.2040,6.4820) -- (45.2040,1.1060) -- (45.8900,1.1060) -- (45.8900,5.9750) -- cycle;
+
+\path[nonzero rule, #1] (51.7580,8.8500) -- (51.7580,1.1060) -- (52.8110,1.1060) -- (55.9520,7.9060) -- (55.9730,7.8840) -- (55.9730,1.1060) -- (56.6590,1.1060) -- (56.6590,8.8500) -- (55.6180,8.8500) -- (52.4690,1.9750) -- (52.4460,1.9990) -- (52.4460,8.8500) -- (51.7580,8.8500) -- cycle;
+
+\path[nonzero rule,rounded corners=0, #1] (58.8170,1.1060) rectangle (59.5040,8.8500);
+
+\path[nonzero rule, #1] (65.4240,1.1060) -- (66.0880,1.1060) -- (63.9440,8.8500) -- (63.0880,8.8500) -- (60.9300,1.1060) -- (61.6610,1.1060) -- (63.4970,8.0340) -- (63.5140,8.0340) -- (65.4240,1.1060) -- cycle;
+
+\path[nonzero rule, #1] (70.9930,1.1060) -- (70.9930,1.6850) -- (68.1720,1.6850) -- (68.1720,4.5800) -- (70.8680,4.5800) -- (70.8680,5.1620) -- (68.1720,5.1620) -- (68.1720,8.2710) -- (71.0670,8.2710) -- (71.0670,8.8500) -- (67.4870,8.8500) -- (67.4870,1.1060) -- (70.9930,1.1060) -- cycle;
+
+\path[nonzero rule, #1] (73.3420,4.5160) -- (74.4600,4.5160) .. controls (75.4890,4.5160) and (75.9690,4.2500) .. (75.9690,2.9510) .. controls (75.9690,1.8900) and (75.5510,1.6850) .. (74.7490,1.6850) -- (73.3420,1.6850) -- (73.3420,4.5160) -- cycle(73.3420,5.0960) -- (73.3420,8.8500) -- (72.6590,8.8500) -- (72.6590,1.1060) -- (74.7920,1.1060) .. controls (76.2840,1.1060) and (76.6570,1.6000) .. (76.6570,2.9610) .. controls (76.6570,3.9290) and (76.4950,4.5710) .. (75.4560,4.8070) -- (75.4560,4.8290) .. controls (76.5400,5.0530) and (76.6040,5.1820) .. (76.6040,7.9500) .. controls (76.6040,8.2490) and (76.6570,8.5470) .. (76.6760,8.8500) -- (76.0260,8.8500) .. controls (75.9600,8.6240) and (75.9280,7.3360) .. (75.9170,6.9210) .. controls (75.9070,6.5860) and (76.1310,5.0960) .. (74.6430,5.0960) -- (73.3420,5.0960) -- cycle;
+
+\path[nonzero rule, #1] (81.8190,3.0690) .. controls (81.7990,2.1160) and (81.5610,1.5360) .. (80.5080,1.5360) .. controls (79.6740,1.5360) and (79.1470,1.8260) .. (79.1470,2.7370) .. controls (79.1470,3.8860) and (79.7270,3.9160) .. (80.6080,4.5510) .. controls (81.5610,5.2340) and (82.5360,5.4390) .. (82.5360,6.9420) .. controls (82.5360,8.3250) and (81.8310,9.0000) .. (80.4790,9.0000) .. controls (78.9670,9.0000) and (78.2900,8.1830) .. (78.3520,6.6710) -- (79.0650,6.6710) .. controls (79.0650,7.5300) and (79.1270,8.4210) .. (80.5080,8.4210) .. controls (81.4110,8.4210) and (81.8500,7.9380) .. (81.8500,7.0460) .. controls (81.8500,5.9960) and (81.1530,5.6970) .. (80.0380,5.0120) .. controls (78.5400,4.0870) and (78.4730,3.6280) .. (78.4610,2.8550) .. controls (78.4520,1.5150) and (79.2990,0.9580) .. (80.5630,0.9580) .. controls (82.1720,0.9580) and (82.5160,1.9540) .. (82.5160,3.0690) -- (81.8190,3.0690) -- cycle;
+
+\path[nonzero rule,rounded corners=0.0000cm, #1] (84.4690,1.1060) rectangle (85.1550,8.8500);
+
+\path[nonzero rule, #1] (88.5220,1.6850) -- (86.6370,1.6850) -- (86.6370,1.1060) -- (91.0980,1.1060) -- (91.0980,1.6850) -- (89.2110,1.6850) -- (89.2110,8.8500) -- (88.5220,8.8500) -- (88.5220,1.6850) -- cycle;
+
+\path[nonzero rule, #1] (94.0610,5.6330) -- (91.8720,1.1060) -- (92.6450,1.1060) -- (94.4150,4.9570) -- (96.2700,1.1060) -- (96.9560,1.1060) -- (94.7490,5.6330) -- (94.7490,8.8500) -- (94.0610,8.8500) -- (94.0610,5.6330) -- cycle;
+
+\end{tikzpicture}
+}
+
+% A macro to combine the two
+\newlength{\gearsize}
+
+\newcommand\ncsulogo[2][fill=WolfpackRed]{%
+\setlength{\gearsize}{#2}%
+\begin{tikzpicture}[outer sep=0pt,inner sep=0pt]
+    \node {\ncsutext[#1]{0.05\gearsize}};
+\end{tikzpicture}}
+
+% Title page background
+\newcommand\TitleBgImage{%
+\begin{tikzpicture}[overlay,remember picture,inner sep=0pt,outer sep=0pt]
+% colored upper side beam
+\usebeamercolor{palette primary}
+\path[fill=bg,nonzero rule]
+    (current page.south west) -- +(0,\paperheight) -- +(0.0626\paperheight,\paperheight) -- +(0.0626\paperheight,0) -- cycle;
+% NCSU Brick
+\node at ([shift={(0.5\paperwidth,-0.12\paperheight)}] current page.north west) [anchor=center] {\ncsubrick{0.0042\paperheight}};
+% additional logo if specified by user
+\node at ([shift={(-0.0313\paperheight,-0.0313\paperheight)}] current page.north east) [anchor=north east] {\insertlogo};
+\end{tikzpicture}
+}
+
+% Frame background
+\newcommand\FrameBgImage{%
+\begin{tikzpicture}[overlay,remember picture]
+% colored lower side beam
+\usebeamercolor{palette primary}
+\path[fill=bg,nonzero rule]
+    (current page.south west) -- +(0,\paperheight) -- +(0.0626\paperheight,\paperheight) -- +(0.0626\paperheight,0) -- cycle;
+\end{tikzpicture}
+}
+
+\newcommand\BgImage{\FrameBgImage}
+\usebackgroundtemplate{\BgImage}
+
+% remove logo from its default position on right sidebar
+\setbeamertemplate{sidebar right}{default}
+{}
+
+%---------------------------------------------------------------------
+% Titlepage
+%---------------------------------------------------------------------
+% Email field
+\newtoks\email
+
+% Titlepage structure
+\def\maketitle{\ifbeamer@inframe\titlepage\else
+\begingroup\renewcommand\BgImage{\TitleBgImage}\frame[plain]{\titlepage}
+\endgroup\fi}
+\def\titlepage{\usebeamertemplate{title page}}
+\setbeamertemplate{title page}
+{
+	\begin{minipage}[t][.42\paperheight][b]{\textwidth}
+	\centering
+	\ifx\inserttitle\@empty%
+	\else%
+		{\usebeamerfont{title}\usebeamercolor[fg]{title}\MakeUppercase{\inserttitle}\par}%
+	\fi%
+	\ifx\insertsubtitle\@empty%
+	\else%
+		{\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
+	\fi%
+	\end{minipage}
+  \begin{minipage}[c][.18\paperheight]{\textwidth}
+  \centering
+  \ifx\insertdate\@empty%
+  \else%
+    {\usebeamerfont{date}\usebeamercolor[fg]{date}\insertdate\par}%
+  \fi%
+  \end{minipage}
+	\vfill
+	\begin{minipage}[b][.35\paperheight]{\textwidth}
+	\centering
+	\ifx\insertauthor\@empty%
+	\else%
+		{\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par}%
+	\fi%
+	\ifx\the\email\@empty%
+	\else%
+	  \vspace*{2mm}
+	  {\usebeamerfont{email}\usebeamercolor[fg]{email}\href{mailto:\the\email}{\the\email}\par}
+	\fi%
+	\vfill
+	\ifx\insertinstitute\@empty%
+	\else%
+		{\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute\par}%
+	\fi%
+	\vspace*{10mm}
+	\end{minipage}
+}
+
+%---------------------------------------------------------------------
+% Sectionpages
+%---------------------------------------------------------------------
+\if@doSectionPage
+% Insert frame with current outline at beginning of sections
+\AtBeginSection[]
+{
+\begingroup
+\begin{frame}{\contentsname}
+\tableofcontents[current]
+\end{frame}
+\endgroup
+}
+\fi
+
+%---------------------------------------------------------------------
+% Frametitle
+%---------------------------------------------------------------------
+\setbeamertemplate{frametitle}
+{
+\vspace*{1mm}
+\usebeamerfont{frametitle}\MakeUppercase{\insertframetitle}
+\ifx\insertframesubtitle\empty
+\else
+  --- \insertframesubtitle
+\fi
+}
+
+%---------------------------------------------------------------------
+% Footline
+%---------------------------------------------------------------------
+\usenavigationsymbolstemplate{}
+\setbeamertemplate{footline}%
+{%
+\leavevmode%
+\begin{beamercolorbox}[wd=0.5\paperwidth,ht=0.0726\paperheight,dp=0.01\paperheight,leftskip=\Gm@lmargin]{page number in head/foot}%
+\ncsulogo{0.0626\paperheight}
+\vspace{2ex}%
+\end{beamercolorbox}%
+\begin{beamercolorbox}[wd=0.5\paperwidth,ht=0.0726\paperheight,dp=0.01\paperheight,right,rightskip=0.4cm]{page number in head/foot}%
+\usebeamerfont{page number in head/foot}%
+\insertframenumber\vspace{2ex}%
+\end{beamercolorbox}
+}%
+
+%---------------------------------------------------------------------
+% Captions
+%---------------------------------------------------------------------
+\setbeamertemplate{caption label separator}{: }
+
+%---------------------------------------------------------------------
+% Blocks
+%---------------------------------------------------------------------
+\setbeamertemplate{block begin}
+{
+  \par\vskip\medskipamount%
+  \begin{beamercolorbox}[sep=.5ex,dp=0.6ex,leftskip=0.5ex,rightskip=0.5ex]{block title}
+    \usebeamerfont*{block title}\insertblocktitle%
+  \end{beamercolorbox}%
+  {\parskip0pt\par}%
+  {\nointerlineskip\vskip-0.5pt}%
+  \usebeamerfont{block body}%
+  \begin{beamercolorbox}[sep=.5ex,dp=0.6ex,leftskip=0.5ex,rightskip=0.5ex,vmode]{block body}%
+}
+\setbeamertemplate{block end}
+{\end{beamercolorbox}\vskip\smallskipamount}
+
+\setbeamertemplate{block alerted begin}
+{
+  \setbeamercolor{local structure}{use=block title alerted,fg=block title alerted.bg}
+  \par\vskip\medskipamount%
+  \begin{beamercolorbox}[sep=.5ex,dp=0.6ex,leftskip=0.5ex,rightskip=0.5ex]{block title alerted}
+    \usebeamerfont*{block title alerted}\insertblocktitle%
+  \end{beamercolorbox}%
+  {\parskip0pt\par}%
+  {\nointerlineskip\vskip-0.5pt}%
+  \usebeamerfont{block body alerted}%
+  \begin{beamercolorbox}[sep=.5ex,dp=0.6ex,leftskip=0.5ex,rightskip=0.5ex,vmode]{block body alerted}%
+}
+\setbeamertemplate{block alerted end}
+{\end{beamercolorbox}\vskip\smallskipamount}
+
+\setbeamertemplate{block example begin}
+{
+  \par\vskip\medskipamount%
+  \begin{beamercolorbox}[sep=.5ex,dp=0.6ex,leftskip=0.5ex,rightskip=0.5ex]{block title example}
+    \usebeamerfont*{block title example}\insertblocktitle%
+  \end{beamercolorbox}%
+  {\parskip0pt\par}%
+  {\nointerlineskip\vskip-0.5pt}%
+  \usebeamerfont{block body example}%
+  \begin{beamercolorbox}[sep=.5ex,dp=0.6ex,leftskip=0.5ex,rightskip=0.5ex,vmode]{block body example}%
+}
+\setbeamertemplate{block example end}
+{\end{beamercolorbox}\vskip\smallskipamount}
+
+%---------------------------------------------------------------------
+% Images
+%---------------------------------------------------------------------
+\newbox\mytempbox
+\newdimen\mytempdimen
+
+% Image with copyright information
+\newcommand\includegraphicscopyright[3][]{%
+  \leavevmode\vbox{\vskip3pt\raggedright\setbox\mytempbox=\hbox{\includegraphics[#1]{#2}}%
+    \mytempdimen=\wd\mytempbox\box\mytempbox\par\vskip1pt%
+    \usebeamerfont{copyright text}{\usebeamercolor[fg]{copyright text}{\vbox{\hsize=\mytempdimen#3}}}\vskip3pt%
+}}
+
+%---------------------------------------------------------------------
+% Bibliography
+%---------------------------------------------------------------------
+\AtEndPreamble{%
+\@ifpackageloaded{biblatex}{%
+  \WarningFilter{biblatex}{Patching footnotes failed}
+  \defbibheading{bibliography}[\bibname]{}
+
+  \setbeamertemplate{bibliography item}{%
+    \ifboolexpr{ test {\ifentrytype{book}} or test {\ifentrytype{mvbook}}
+      or test {\ifentrytype{collection}} or test {\ifentrytype{mvcollection}}
+      or test {\ifentrytype{reference}} or test {\ifentrytype{mvreference}} }
+      {\setbeamertemplate{bibliography item}[book]}
+      {\ifentrytype{online}
+         {\setbeamertemplate{bibliography item}[online]}
+         {\setbeamertemplate{bibliography item}[article]}}%
+    \usebeamertemplate{bibliography item}}
+
+  \defbibenvironment{bibliography}
+    {\list{}
+       {\settowidth{\labelwidth}{\usebeamertemplate{bibliography item}}%
+        \setlength{\leftmargin}{\labelwidth}%
+        \setlength{\labelsep}{\biblabelsep}%
+        \addtolength{\leftmargin}{\labelsep}%
+        \setlength{\itemsep}{\bibitemsep}%
+        \setlength{\parsep}{\bibparsep}}}
+    {\endlist}
+    {\item}
+  }{}
+}
+
+\mode
+<all>
